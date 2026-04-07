@@ -4,12 +4,6 @@ Benchmark code for 3D keypoint-to-anatomical landmark regression with multiple n
 
 This repository is the cleaned public project extracted from the original research workspace. It intentionally does **not** include:
 
-- paper source files
-- datasets
-- local experiment logs
-- W&B runs
-- generated figures, tables, or ad-hoc notebooks
-
 ## Scope
 
 The public release focuses on the reproducible benchmark core:
@@ -18,9 +12,7 @@ The public release focuses on the reproducible benchmark core:
 - MOVE4D and AMASS data modules
 - biomechanical losses and metrics
 - robustness and error-propagation scripts
-- OpenSim utilities for downstream kinematic analysis
 
-Legacy DSTformer/GaitBERT code is intentionally excluded from this release.
 
 ## Repository Layout
 
@@ -58,6 +50,14 @@ If you need a specific CUDA-enabled PyTorch build, replace the default `pytorch`
 
 ## Expected Data Layout
 
+### Download Links
+
+Before running the benchmark, download the required datasets and processing resources:
+
+- MOVE4D: https://data.mendeley.com/datasets/493s6f753v/2
+- Processed AMASS data: https://github.com/antoinefalisse/marker-augmentation
+- OpenCap validation pipeline and repository: https://github.com/opencap-org/opencap-core
+
 ### MOVE4D
 
 ```text
@@ -71,6 +71,8 @@ data/
 
 Default MOVE4D configs assume `data/move4d/MOVE4D`.
 
+Download the raw MOVE4D dataset from the Mendeley link above, then place it in the expected directory structure.
+
 ### AMASS
 
 ```text
@@ -83,6 +85,16 @@ data/
 ```
 
 Default AMASS configs assume `data/amass` and `data/amass/subjectSplit_curated.npy`.
+
+The benchmark expects the AMASS data to be preprocessed with the marker-augmentation pipeline before training. See the repository above for the processed-data generation workflow.
+
+### OpenCap Validation
+
+OpenCap validation experiments rely on the OpenCap core repository for data handling and evaluation:
+
+- OpenCap core: https://github.com/opencap-org/opencap-core
+
+Follow the OpenCap repository instructions to prepare the validation data and environment before running cross-dataset evaluation.
 
 ## Quick Start
 
@@ -141,7 +153,6 @@ This repository keeps the code paths required to reproduce:
 - benchmark training across model families
 - baseline test-time prediction export
 - robustness analysis under structured corruption
-- downstream biomechanical evaluation with ISB/OpenSim tooling
 
 It does **not** ship original checkpoints or datasets. To reproduce paper-level numbers you need the same data splits, preprocessing, and trained models.
 
@@ -150,8 +161,5 @@ It does **not** ship original checkpoints or datasets. To reproduce paper-level 
 Some models or utilities require extra packages not needed for the default benchmark:
 
 - `mamba-ssm` for Mamba-based models
-- an S4 implementation for S4-based models
-- OpenSim Python bindings for `lib/opensim/*`
-- `smplx` for some visualization and mesh utilities
 
 If those packages are missing, the core benchmark still works for the supported baseline subset.
