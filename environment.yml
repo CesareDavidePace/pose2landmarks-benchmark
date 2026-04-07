@@ -1,0 +1,29 @@
+name: pose2landmark
+channels:
+  - pytorch
+  - conda-forge
+dependencies:
+  - python=3.10
+  - pip
+  - pytorch
+  - torchvision
+  - pytorch-lightning
+  - numpy
+  - pandas
+  - scipy
+  - matplotlib
+  - seaborn
+  - pyyaml
+  - h5py
+  - tqdm
+  - pillow
+  - imageio
+  - opencv
+  - pip:
+      - wandb
+      - easydict
+      - prettytable
+      - termcolor
+      - fvcore
+      - thop
+      - smplx
